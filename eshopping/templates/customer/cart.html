@@ -1,0 +1,194 @@
+{% extends 'customer/inc/layout.html' %}
+
+{% block content %}
+{% load static %}
+
+<style type="text/css">
+	.sub-btn
+	{
+	    background: #333 none repeat scroll 0 0;
+	    border: 0 none;
+	    border-radius: 0;
+	    color: #fff;
+	    display: inline-block;
+	    font-size: 14px;
+	    font-weight: 700;
+	    height: 50px;
+	    line-height: 50px;
+	    padding: 0 28px;
+	    text-transform: uppercase;
+	    width: auto;
+	    transition: .3s;
+	}
+	.sub-btn:hover
+	{
+	    background-color: #F07C29;
+	    color: #fff;
+	    border: 1px solid #F07C29;
+	}
+</style>
+<!-- breadcrumbs-area-start -->
+		<div class="breadcrumbs-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="breadcrumbs-menu">
+							<ul>
+								<li><a href="#">Home</a></li>
+								<li><a href="#" class="active">cart</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- breadcrumbs-area-end -->
+		<!-- entry-header-area-start -->
+		<div class="entry-header-area">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="entry-header-title">
+							<h2>Cart</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- entry-header-area-end -->
+		<!-- cart-main-area-start -->
+		<div class="cart-main-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<form action="" method="post" action="/customer/update_cart">
+							 {% csrf_token %}
+							<div class="table-content table-responsive mb-15 border-1">
+								<table>
+									<thead>
+										<tr>
+											<th class="product-thumbnail">Image</th>
+											<th class="product-name">Product</th>
+											<th  class="product-price">Price</th>
+											<th class="product-quantity">Quantity</th>
+											<th class="product-subtotal">Total</th>
+											<th class="product-remove">Remove</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for row in result %}
+										<tr>
+											<td class="product-thumbnail"><a href="#">
+												<img src="/media/product/{{row.product.image}}" alt="book" class="primary"/>
+											</a></td>
+											<td class="product-name"><a href="#">{{row.product.pname}} - {{row.product.t_type}}
+											</a></td>
+
+											<td class="product-price"><span class="amount" id="price" name="price">₹{{row.product.price}} 
+											{% if row.product.t_type == 'rent' %}
+											+ ₹{% widthratio row.product.price 10 1 %}/month
+											{% endif %}
+											</span></td>
+											
+
+											<td class="product-quantity">
+												<input type="number"  name="quantity" min="1" value="{{row.quantity}}" onchange="return update_quantity({{row.id}}, this.value)">
+											</td>
+												<td class="product-subtotal">
+												{% if row.product.t_type == 'rent' %}
+													₹{{row.total_rent}}<br>Deposit + Rent * Months(Quantity)
+												{% else %}
+													₹{% widthratio row.quantity 1 row.product.price %}
+												{% endif %}
+											</td>
+
+											<td class="product-remove"><a href="/customer/remove_item/{{row.id}}"><i class="fa fa-times"></i></a></td>
+										</tr>
+										{% endfor %}
+
+									</tbody>
+								</table>
+							</div>
+						
+					</div>
+				</div>
+				<div class="row">
+                    <div class="col-lg-8 col-md-6 col-12">
+                        <div class="buttons-cart mb-30">
+                            <ul>
+                                <!-- <li><input type="submit" class="sub-btn" value="Update Cart"></li> -->
+                                <li><a href="/customer/home">Continue Shopping</a></li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="cart_totals">
+                            <h2>Cart Totals</h2>
+                            <table>
+                                <tbody>
+                                    <tr class="cart-subtotal">
+                                        <th>Subtotal</th>
+                                        <td>
+                                            <span class="amount">₹{{s_total}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="shipping">
+                                        <th>Shipping</th>
+                                        <td>
+                                            <ul id="shipping_method">
+                                                <li>
+                                                    <label>
+                                                        Free Shipping
+                                                    </label>
+                                                </li>
+                                                
+                                            </ul>
+                                            <a href="#">---------------------</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="order-total">
+                                        <th>Total</th>
+                                        <td>
+                                            <strong>
+                                                <span class="amount">₹{{s_total}}
+                                                </span>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="wc-proceed-to-checkout">
+                                <a href="/customer/checkout">Proceed to Checkout</a>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+		<!-- cart-main-area-end -->
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+	function update_quantity(cart_id, quantity)
+	{
+		$.ajax({
+			type:'get',
+			url:'/customer/update_cart',
+			data:{
+				cart_id : cart_id,
+				quantity : quantity
+			},
+			success:function(result)
+			{
+				alert('Your Cart Updated Successfully');
+				document.location = '/customer/cart';
+			}
+		});
+	}
+</script>
+
+{% endblock %}

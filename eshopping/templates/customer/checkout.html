@@ -1,0 +1,311 @@
+{% extends 'customer/inc/layout.html' %}
+{% load static %}
+{% block content %}
+	<!-- breadcrumbs-area-start -->
+		<div class="breadcrumbs-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="breadcrumbs-menu">
+							<ul>
+								<li><a href="#">Home</a></li>
+								<li><a href="#" class="active">checkout</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- breadcrumbs-area-end -->
+		<!-- entry-header-area-start -->
+		<div class="entry-header-area">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="entry-header-title">
+							<h2>Checkout</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- entry-header-area-end -->
+		<!-- coupon-area-area-start -->
+		<div class="coupon-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="coupon-accordion">
+							<h3>Have a coupon? <span id="showcoupon">Click here to enter your code</span></h3>
+							<div class="coupon-checkout-content" id="checkout_coupon">
+								<div class="coupon-info">
+										<p class="checkout-coupon">
+											<input type="text" placeholder="Coupon code">
+											<input type="submit" value="Apply Coupon">
+										</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- coupon-area-area-end -->
+		<!-- checkout-area-start -->
+		<div class="checkout-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+					    <form action="/customer/place_order" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12 col-12">
+                                <div class="checkbox-form">						
+                                    <h3>Billing Details</h3>
+                                    <div class="row">
+                                        <div class=" col-lg-12">
+                                            <div class="country-select">
+                                                <label>State <span class="required">*</span></label>
+                                                <select id="state" name="state">
+                                                  <option value="">Select State</option>
+                                                  {% for row in state %}
+                                                    <option value="{{row.id}}">{{row.state_name}}</option>
+                                                  {% endfor %}
+                                                </select> 										
+                                            </div>
+                                        </div>
+                                        <div class=" col-lg-6">
+                                            <div class="country-select">
+                                                <label>City <span class="required">*</span></label>
+                                                <select id="city" name="city">
+                                                  <option value="">Select City</option>
+                                                  {% for row in city %}
+                                                    <option value="{{row.id}}">{{row.city_name}}</option>
+                                                  {% endfor %}
+                                                </select>                                       
+                                            </div>
+                                        </div>
+                                        <div class=" col-lg-6">
+                                            <div class="country-select">
+                                                <label>Area <span class="required">*</span></label>
+                                                <select id="area" name="area">
+                                                  <option value="">Select Area</option>
+                                                  {% for row in area %}
+                                                    <option value="{{row.id}}">{{row.area_name}}</option>
+                                                  {% endfor %}
+                                                </select>                                       
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12 ">
+                                            <div class="checkout-form-list">
+                                                <label>First Name <span class="required">*</span></label>										
+                                                <input type="text"  id="fname" name="fname" class="fname" value="{{cus.user.first_name}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="checkout-form-list">
+                                                <label>Last Name <span class="required">*</span></label>										
+                                                <input type="text"  id="lname" name="lname" class="lname" value="{{cus.user.last_name}}">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-lg-12 col-md-12 col-12">
+                                            <div class="checkout-form-list">
+                                                <label>Address <span class="required">*</span></label>
+                                                <input type="text"  id="address" name="address" class="address" value="{{cus.address}}">
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="checkout-form-list">
+                                                <label>Postcode / Zip <span class="required">*</span></label>										
+                                                <input type="text"  id="pin" name="pin" class="pin">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="checkout-form-list">
+                                                <label>Email Address <span class="required">*</span></label>										
+                                                <input type="email" name="email" id="email" class="email" value="{{cus.user.email}}">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="checkout-form-list">
+                                                <label>Phone  <span class="required">*</span></label>										
+                                                <input type="text" name="phone" id="phone" class="phone" value="{{cus.contact}}">
+                                            </div>
+                                        </div>					
+                                    </div>
+                                    <div class="different-address">
+                                            <div class="ship-different-title">
+                                                <h3>
+                                                    <label>Ship to a different address?</label>
+                                                    <input type="radio" name="ship_bill" id="ship-box" value="yes" ><label>Yes</label>
+                                                    <input type="radio" name="ship_bill" id="" value="no"><label>No</label>
+                                                </h3>
+                                            </div>
+                                        <div class="row" id="ship-box-info" style="display: none;">
+                                            <div class=" col-lg-12">
+                                            <div class="country-select">
+                                                <label>State <span class="required">*</span></label>
+                                                <select id="sstate" name="sstate">
+                                                  <option value="">Select State</option>
+                                                  {% for row in state %}
+                                                    <option value="{{row.id}}">{{row.state_name}}</option>
+                                                  {% endfor %}
+                                                </select>                                       
+                                            </div>
+                                        </div>
+                                        <div class=" col-lg-6">
+                                            <div class="country-select">
+                                                <label>City <span class="required">*</span></label>
+                                                <select id="scity" name="scity">
+                                                  <option value="">Select City</option>
+                                                  {% for row in city %}
+                                                    <option value="{{row.id}}">{{row.city_name}}</option>
+                                                  {% endfor %}
+                                                </select>                                       
+                                            </div>
+                                        </div>
+                                        <div class=" col-lg-6">
+                                            <div class="country-select">
+                                                <label>Area <span class="required">*</span></label>
+                                                <select id="sarea" name="sarea">
+                                                  <option value="">Select Area</option>
+                                                  {% for row in area %}
+                                                    <option value="{{row.id}}">{{row.area_name}}</option>
+                                                  {% endfor %}
+                                                </select>                                       
+                                            </div>
+                                        </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkout-form-list">
+                                                    <label>First Name <span class="required">*</span></label>										
+                                                    <input type="text" placeholder="" name="sfname" id="sfname">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkout-form-list">
+                                                    <label>Last Name <span class="required">*</span></label>										
+                                                    <input type="text" placeholder="" name="slname" id="slname">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="checkout-form-list">
+                                                    <label>Address <span class="required">*</span></label>
+                                                    <input type="text" name="saddress" id="saddress">
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkout-form-list">
+                                                    <label>Postcode / Zip <span class="required">*</span></label>										
+                                                    <input type="text" placeholder="" name="spin" id="spin">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkout-form-list">
+                                                    <label>Email Address <span class="required">*</span></label>										
+                                                    <input type="email" placeholder="" name="semail" id="semail">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkout-form-list">
+                                                    <label>Phone  <span class="required">*</span></label>										
+                                                    <!-- <input type="text" placeholder="" name="sphone" id="sphone"> -->
+                                                <input type="text" name="sphone" id="sphone" class="sphone">
+
+                                                </div>
+                                            </div>								
+                                        </div>
+                                      
+                                    </div>													
+                                </div>
+                            </div>
+                                <div class="col-lg-6 col-md-12 col-12">
+                                <div class="your-order">
+                                    <h3>Your order</h3>
+                                    <div class="your-order-table table-responsive">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-name">Product</th>
+                                                    <th class="product-total">Total</th>
+                                                </tr>							
+                                            </thead>
+                                            <tbody>
+                                                {% for row in result %}
+                                                <tr class="cart_item">
+                                                    <td class="product-name">
+                                                        {{row.product.pname}} <strong class="product-quantity"> × {{row.quantity}} {% if row.product.t_type == 'rent' %}/month{% endif %}</strong>
+                                                    </td>
+                                                    <td class="product-total">
+                                                        <span class="amount">₹{{row.product.price}} 
+                                                        {% if row.product.t_type == 'rent' %}
+                                                        + ₹{% widthratio row.product.price 10 1 %}/month
+                                                        {% endif %}</span>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="cart-subtotal">
+                                                    <th>Cart Subtotal</th>
+                                                    <td><span class="amount">₹{{s_total}}</span></td>
+                                                </tr>
+                                                <tr class="shipping">
+                                                    <th>Shipping</th>
+                                                    <td>
+                                                        <ul>
+                                                            <li>
+                                                                <label>
+                                                                    Free Shipping
+                                                                </label>
+                                                            </li>
+                                                            
+                                                            <li></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                                <tr class="order-total">
+                                                    <th>Order Total</th>
+                                                    <td><strong><span class="amount">₹{{s_total}}</span></strong>
+                                                    </td>
+                                                </tr>								
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="payment-method">
+                                        <div class="payment-accordion">
+                                            <div class="collapses-group">
+                                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                                    <div class="panel panel-default">
+                                                        
+                                                            <div class="panel-body">
+                                                                <p>Payment Method 
+                                                                <input type="radio" name="method" value="cod" id="rd1">COD
+                                                                <input type="radio" name="method" value="online" id="rd2">Online
+                                                                 <img src="{% static 'customer/img/logo/razor.png' %}" width="150" alt="logo" />
+    
+                                                                 </p>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="order-button-payment">
+                                            <input type="submit" value="Place order">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- checkout-area-end -->
+{% endblock %}

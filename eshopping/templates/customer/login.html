@@ -1,0 +1,77 @@
+{% extends 'customer/inc/layout.html' %}
+
+{% block content %}
+
+<style type="text/css" media="screen">
+	.btn-submit
+	{
+		    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+		    border: 1px solid #eceff8;
+		    box-shadow: none;
+		    color: #626262;
+		    display: inline-block;
+		    font-size: 14px;
+		    margin-top: 6px;
+		    padding: 12px 48px;
+		    text-decoration: none;
+		    transition: .3s;
+		    font-family: 'Rufina', serif;
+		    font-weight: 400;
+	}
+	.btn-submit:hover
+	{
+	    background-color: #F07C29;
+	    color: #fff;
+	    border: 1px solid #F07C29;
+	}
+</style>
+	<!-- breadcrumbs-area-start -->
+		<div class="breadcrumbs-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="breadcrumbs-menu">
+							<ul>
+								<li><a href="#">Home</a></li>
+								<li><a href="#" class="active">login</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- breadcrumbs-area-end -->
+		<!-- user-login-area-start -->
+		<div class="user-login-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="login-title text-center mb-30">
+							<h2>Login</h2>
+
+						</div>
+					</div>
+					<div class="offset-lg-3 col-lg-6 col-md-12 col-12">
+						<form action="/customer/check_login" method="post">
+						{% csrf_token %}
+						<div class="login-form">
+							<div class="single-login">
+								<label>Username or email<span>*</span></label>
+								<input type="text" id="username" name="username" />
+							</div>
+							<div class="single-login">
+								<label>Passwords <span>*</span></label>
+								<input type="text" id="password" name="password" />
+							</div>
+							<div class="single-register">
+								<input type="submit" name="submit" class="btn-submit">
+							</div>
+							</div>
+							<a href="/customer/register">Don't have an account?</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- user-login-area-end -->
+{% endblock %}

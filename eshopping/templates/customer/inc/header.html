@@ -1,0 +1,65 @@
+  {% load static %}
+  <header>
+        <!-- header-top-area-start -->
+        {% include 'customer/inc/header_top.html' %}
+        <!-- header-top-area-end -->
+        <!-- header-mid-area-start -->
+        <div class="header-mid-area ptb-40">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-5 col-12">
+                        <div class="header-search">
+                            <form action="#">
+                                <input type="text" placeholder="Search entire store here..." />
+                                <a href="#"><i class="fa fa-search"></i></a>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-4 col-12">
+                        <div class="logo-area text-center logo-xs-mrg">
+                            <a href="/customer/home"><img src="{% static 'customer/img/logo/logo.png' %}" width="300px" alt="logo" /></a>
+                        </div>
+                    </div>
+                    {% if user.is_authenticated %}                
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <div class="my-cart">
+                            <ul>
+                                <li><a href="/customer/cart"><i class="fa fa-shopping-cart"></i>My Cart</a>
+                                    <span>{{counter}}</span>
+                                    <div class="mini-cart-sub">
+                                        <div class="cart-product">
+                                            {% for row in cart_item %}
+                                            <div class="single-cart">
+                                                <div class="cart-img">
+                                                    <a href="#"><img src="/media/product/{{row.product.image}}" alt="book" /></a>
+                                                </div>
+                                                <div class="cart-info">
+                                                    <h5><a href="#">{{row.product.pname}}</a></h5>
+                                                    <p>1 x ₹{{row.product.price}}</p>
+                                                </div>
+                                                <div class="cart-icon">
+                                                    <a href="/customer/remove_item/{{row.id}}"><i class="fa fa-remove"></i></a>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            
+                                        </div>
+                                        <div class="cart-totals">
+                                            <h5>Total <span>₹{{sub_total}}</span></h5>
+                                        </div>
+                                        <div class="cart-bottom">
+                                            <a class="view-cart" href="/customer/cart">view cart</a>
+                                            <a href="/customer/checkout">Check out</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- header-mid-area-end -->
+        {% include 'customer/inc/menu.html' %}
+    </header>

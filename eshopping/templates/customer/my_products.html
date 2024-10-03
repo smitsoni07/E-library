@@ -1,0 +1,122 @@
+{% extends 'customer/inc/layout.html' %}
+
+{% block content %}
+
+<!-- breadcrumbs-area-start -->
+		<div class="breadcrumbs-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="breadcrumbs-menu">
+							<ul>
+								<li><a href="#">Home</a></li>
+								<li><a href="#" class="active">My Products</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="contact-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-12">
+						<div class="contact-info">
+							<!-- <ul>
+
+							<h3>{{row.orderdate}}
+							 <a href="#" class="btn btn-outline-danger ml-5 disabled">Cancelled</a>
+							
+							 <a href="#" class="btn btn-outline-success ml-5 disabled">Visited</a>
+							 <a href="/customer/cancel_order/{{row.id}}" class="btn btn-outline-danger ml-5">Cancel</a>
+
+							</h3> 
+						 	 <table>
+							{% for row in result %}
+
+
+
+								<li>
+									<span>Book Name: </span>
+									{{row.pname}} 							
+								</li>
+								<li>
+									<span>Author: </span>
+									{{row.author}} 							
+								</li>
+								<li>
+									<span>Price: </span>
+									{{row.price}} 							
+								</li>
+								<li>
+									<span>Quantity: </span>
+									{{row.quantity}} 							
+								</li>
+								
+							 	<ul>
+							 		<a href="/customer/cancel_order/{{row.id}}" class="text-danger btn btn-outline-danger ml-5" >Cancel</a>
+							 	</ul>
+								
+							{% endfor %}
+							</table> 
+							</ul> -->
+
+
+
+
+
+<div class="card-group">
+{% for row in result %}
+  <div class="card ml-3">
+    <img class="card-img-top" src="/media/product/{{row.image}}" style="height:500px; width:400px" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{row.pname}}</h5>
+      <p class="card-text">
+      	Author: <b>{{row.author}}</b>
+        	<br>
+        	Price: <b>{{row.price}}</b>
+        	<br>
+        	<b>{{row.t_type}}</b>
+        	<p>{{row.description}}</p>
+      </p>
+
+	 <a href="/customer/delete_product/{{row.id}}" class="bottom-0 btn btn-outline-danger">Delete</a>
+	 <a href="/customer/edit_product/{{row.id}}" class="bottom-0 btn btn-outline-success">Edit</a>
+    </div>
+  </div>
+  
+{% endfor %}
+</div>
+
+
+						</div>
+					</div>
+					<!-- <div class="col-lg-6 col-md-6 col-12">
+						<div class="contact-form">
+							<h3><i class="fa fa-envelope-o"></i>Leave a Message</h3>
+                            <form id="contact-form" action="/customer/contact_us" method="post">
+                            	{% csrf_token %}
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="single-form-3">
+                                            <input name="subject" type="text" placeholder="Subject" id="subject">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                         <div class="single-form-3">
+                                            <textarea name="message" placeholder="Message" id="message"></textarea>
+                                            <button class="submit" type="submit">SEND MESSAGE</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <p class="form-messege"></p>
+						</div>	
+					</div> -->
+				</div>
+			</div>
+		</div>
+		<!-- contact-area-end -->
+
+{% endblock %}

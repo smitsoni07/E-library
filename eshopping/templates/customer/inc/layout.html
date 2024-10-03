@@ -1,0 +1,32 @@
+{% load static %}
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    {% include 'customer/inc/head.html'%}
+</head>
+
+<body>
+    <!-- header-area-start -->
+    {% include 'customer/inc/header.html' %}
+    <!-- header-area-end -->
+    {% block content %}
+    {% endblock %}
+    <!-- footer-area-start -->
+    {% include 'customer/inc/footer.html' %}
+    <!-- footer-area-end -->
+   
+    {% block productmodel %}
+    {% endblock %}
+
+
+
+   {% include 'customer/inc/footer_link.html' %}
+
+    {% block scripts %}
+
+    {% endblock %}
+</body>
+
+
+<!-- Mirrored from template.hasthemes.com/koparion/koparion/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 05 Jan 2022 05:55:23 GMT -->
+</html>

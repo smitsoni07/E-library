@@ -1,0 +1,120 @@
+{% extends 'customer/inc/layout.html' %}
+
+{% block content %}
+
+<style type="text/css" media="screen">
+	textarea
+	{
+		background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: 1px solid #eceff8;
+    box-shadow: none;
+    color: #333;
+    font-size: 14px;
+    height: 65px;
+    padding-left: 10px;
+    width: 100%;
+    font-family: 'Rufina', serif;
+    font-weight: 400;
+	}	
+	.form-field
+	{
+	    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+	    border: 1px solid #eceff8;
+	    box-shadow: none;
+	    color: #333;
+	    font-size: 14px;
+	    height: 45px;
+	    padding-left: 10px;
+	    width: 100%;
+	    font-family: 'Rufina', serif;
+	    font-weight: 400;
+	}
+	.btn-submit
+	{
+		    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+		    border: 1px solid #eceff8;
+		    box-shadow: none;
+		    color: #626262;
+		    display: inline-block;
+		    font-size: 14px;
+		    margin-top: 6px;
+		    padding: 12px 48px;
+		    text-decoration: none;
+		    transition: .3s;
+		    font-family: 'Rufina', serif;
+		    font-weight: 400;
+	}
+	.btn-submit:hover
+	{
+	    background-color: #F07C29;
+	    color: #fff;
+	    border: 1px solid #F07C29;
+	}
+
+</style>
+	<!-- breadcrumbs-area-start -->
+	<div class="breadcrumbs-area mb-70">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcrumbs-menu">
+						<ul>
+							<li><a href="#">Home</a></li>
+							<li><a href="#" class="active">Feedback</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- breadcrumbs-area-end -->
+	<!-- user-login-area-start -->
+
+	<div class="user-login-area mb-70">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+
+					<div class="login-title text-center mb-30">
+						
+						<h2>Rate Us and Let us Improve Ourself</h2>
+					</div>
+				</div>
+				<div class="offset-lg-2 col-lg-8 col-md-12 col-12">
+					<div class="billing-fields">
+						<form action="/customer/feedback_store" method="post">
+						{% csrf_token %}
+
+						<div class="single-register">
+							<label>Star<span>*</span></label>
+							<select class="chosen-select" tabindex="1" style="width:100%;" id="rating" name="rating">
+								<option value="Select">Rate </option>
+									<option value="1">⭐</option>
+									<option value="2">⭐⭐</option>
+									<option value="3">⭐⭐⭐</option>
+									<option value="4">⭐⭐⭐⭐</option>
+									<option value="5">⭐⭐⭐⭐⭐</option>
+							</select>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-12 ">
+								<div class="single-register">
+									<label>Comment<span>*</span></label>
+									<textarea class="form-field" name="comment" id="comment" ></textarea>
+								</div>
+							</div>
+							
+						</div>
+					
+						<div class="single-register">
+							<input type="submit" name="submit" class="btn-submit">
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- user-login-area-end -->
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'customer/inc/layout.html' %}
+
+{% block content %}
+
+<!-- breadcrumbs-area-start -->
+		<div class="breadcrumbs-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="breadcrumbs-menu">
+							<ul>
+								<li><a href="#">Home</a></li>
+								<li><a href="#" class="active">My Orders</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="contact-area mb-70">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-12">
+						<div class="contact-info">
+							<ul>
+							{% for row in result %}
+							
+							</h3> 
+								<img src="/media/product/{{row.product.image}}" height="250px" width="250px">
+								<li>Order Id:{{row.id}}</li>
+								<li>Book Name: {{row.product.pname}} -- {{row.product.t_type}}</li>
+								<li>Author: {{row.product.author}}</li>
+								<
+								<li>
+									Quantity: {{row.quantity}}
+								</li>
+								<li>
+									<span>Amount: </span>
+									{{row.price}} 							
+								</li>
+								<li><span>Seller Info.</span> {{row.seller.user.first_name}} {{row.seller.user.last_name}}</li>
+								<li class="mb-4">
+									<span>Order Date: </span>
+									{{row.order.date}} 
+								</li>
+								{% if row.product.t_type == 'rent' %}
+								{% if row.order.rent > 0 %}
+								<p><a href="#" class="btn btn-outline-success disabled ml-5">Returned</a></p>
+								{% else %}
+								<p><a href="/customer/return_book/{{row.id}}" class="btn btn-outline-danger ml-5">Return</a></p>
+								{% endif %}
+								{% endif %}
+							{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- contact-area-end -->
+
+{% endblock %}
